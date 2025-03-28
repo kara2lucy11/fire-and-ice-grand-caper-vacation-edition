@@ -27,7 +27,6 @@ sprites.onOverlap(SpriteKind.firePlayer, SpriteKind.Player, function (sprite, ot
 sprites.onOverlap(SpriteKind.Car, SpriteKind.gasStation, function (sprite, otherSprite) {
     game.showLongText("We made it!", DialogLayout.Bottom)
     sprites.destroy(otherSprite)
-    sprite.vx += 5
     createLevel(4)
 })
 function level2Setup () {
@@ -197,6 +196,8 @@ function resetSprites () {
     controller.moveSprite(iceMan, 0, 0)
     controller.moveSprite(fireMan, 0, 0)
     tiles.setCurrentTilemap(tilemap`level6`)
+    iceMan.ay = 0
+    fireMan.ay = 0
 }
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     if (currentLevel == 2) {
@@ -739,7 +740,7 @@ scene.onOverlapTile(SpriteKind.firePlayer, myTiles.tile6, function (sprite, loca
 })
 scene.onOverlapTile(SpriteKind.Player, myTiles.tile15, function (sprite, location) {
     console.log("OVerlapped White")
-    if (currentLevel == 4) {
+    if (sprite.tilemapLocation().row == 4 && currentLevel == 4) {
         game.setGameOverMessage(true, "We made it to our vacation!")
         game.gameOver(true)
     }
@@ -1017,6 +1018,9 @@ scene.onOverlapTile(SpriteKind.firePlayer, myTiles.tile7, function (sprite, loca
     killResetLevel2()
 })
 function level4Setup () {
+    sprites.destroyAllSpritesOfKind(SpriteKind.gas)
+    sprites.destroyAllSpritesOfKind(SpriteKind.hole)
+    sprites.destroyAllSpritesOfKind(SpriteKind.gasStation)
     iceMan.setKind(SpriteKind.Friend)
     fireMan.setKind(SpriteKind.Friend)
     scene.setBackgroundImage(img`
@@ -1146,7 +1150,7 @@ function level4Setup () {
     tiles.placeOnTile(fireMan, tiles.getTileLocation(7, 98))
     scene.cameraFollowSprite(fireMan)
     story.spriteSayText(fireMan, "Time to cross these busy roads and meet Iceman at the hotel")
-    controller.moveSprite(fireMan, 30, 100)
+    controller.moveSprite(fireMan, 45, 100)
     hotelSprite = sprites.create(img`
         ......................................................................................................................................................
         ...................................................f...f...........f............f.....................................................................
@@ -1169,6 +1173,7 @@ function level4Setup () {
     fireMan.setKind(SpriteKind.Player)
     info.setLife(3)
 }
+// The goal for this project was to almost entirely use things the kids would easily understand and be able to replicate by about mid yellow belt since most kids are in those levels
 let avoidCar: Sprite = null
 let leftTravel: number[] = []
 let rightTravel: number[] = []
@@ -1447,7 +1452,7 @@ pauseUntil(() => controller.A.isPressed())
 currentLevel = 0
 isTestingMode = false
 levelStarted = false
-createLevel(4)
+createLevel(1)
 game.onUpdateInterval(1500, function () {
     rightTravel = [
     93,
