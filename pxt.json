@@ -1,6 +1,6 @@
 {
     "name": "Fire and Ice Grand Caper-Vacation Edition",
-    "version": "0.0.1",
+    "version": "0.1.0",
     "description": "",
     "dependencies": {
         "device": "*",
