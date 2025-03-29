@@ -1,37 +1,18 @@
 namespace SpriteKind {
-    export const collectable = SpriteKind.create()
-    export const bag = SpriteKind.create()
-    export const firePlayer = SpriteKind.create()
+    export const Collectable = SpriteKind.create()
+    export const Bag = SpriteKind.create()
+    export const FirePlayer = SpriteKind.create()
     export const Car = SpriteKind.create()
-    export const hole = SpriteKind.create()
-    export const gas = SpriteKind.create()
-    export const gasStation = SpriteKind.create()
+    export const Hole = SpriteKind.create()
+    export const Gas = SpriteKind.create()
+    export const GasStation = SpriteKind.create()
     export const Hotel = SpriteKind.create()
-    export const froggerCar = SpriteKind.create()
+    export const FroggerCar = SpriteKind.create()
     export const Friend = SpriteKind.create()
 }
-scene.onHitWall(SpriteKind.froggerCar, function (sprite, location) {
-    sprites.destroy(sprite)
-})
-// Glitch happening here? Possibly testing mode only
-sprites.onOverlap(SpriteKind.Car, SpriteKind.gas, function (sprite, otherSprite) {
-    info.changeCountdownBy(5)
-    sprites.destroy(otherSprite, effects.fire, 500)
-})
-sprites.onOverlap(SpriteKind.firePlayer, SpriteKind.Player, function (sprite, otherSprite) {
-    if (currentLevel == 2 && levelStarted) {
-        game.showLongText("They found eachother!", DialogLayout.Bottom)
-        createLevel(3)
-    }
-})
-sprites.onOverlap(SpriteKind.Car, SpriteKind.gasStation, function (sprite, otherSprite) {
-    game.showLongText("We made it!", DialogLayout.Bottom)
-    sprites.destroy(otherSprite)
-    createLevel(4)
-})
 function level2Setup () {
-    sprites.destroyAllSpritesOfKind(SpriteKind.collectable)
-    sprites.destroyAllSpritesOfKind(SpriteKind.bag)
+    sprites.destroyAllSpritesOfKind(SpriteKind.Collectable)
+    sprites.destroyAllSpritesOfKind(SpriteKind.Bag)
     scene.setBackgroundImage(img`
         5555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555
         5555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555
@@ -175,22 +156,22 @@ function createLevel (level: number) {
     resetSprites()
     currentLevel = level
     game.showLongText("Level " + level, DialogLayout.Bottom)
-    music.stopAllSounds()
     if (level == 1) {
-        music.play(music.createSong(hex`0078000408020100001c00010a006400f4016400000400000000000000000000000000050000045e000000040003080f2a0400080001240a000b00010a0c001000020d1e1300140001141a001b00020d1b1d001e0001252500260001052700280001292e002f00010c30003100011e3400350001143b003c0001253c003d00010d3e004000011b`), music.PlaybackMode.LoopingInBackground)
         levelOneSetup()
+        music.play(music.createSong(hex`0078000408020100001c00010a006400f4016400000400000000000000000000000000050000045e000000040003080f2a0400080001240a000b00010a0c001000020d1e1300140001141a001b00020d1b1d001e0001252500260001052700280001292e002f00010c30003100011e3400350001143b003c0001253c003d00010d3e004000011b`), music.PlaybackMode.LoopingInBackground)
     } else if (level == 2) {
-        music.play(music.createSong(hex`00c8000408040100001c00010a006400f401640000040000000000000000000000000005000004c6000400080002051d0c000d0001060e001000012010001400012716001700010f1800190001191c00200002122420002400010624002800012c2a002c00010d2d002e00011d30003400010634003600011d38003900012c3c004000030f161d4000440001224400480001054a004b00012550005200011e52005400010554005800010d58005c00012a5c005e0001245f00600001196000640002051264006800011d6a006c000208296e007000011671007200012476007700012978007a0001227a007c00010d`), music.PlaybackMode.LoopingInBackground)
         level2Setup()
+        music.play(music.createSong(hex`00c8000408040100001c00010a006400f401640000040000000000000000000000000005000004c6000400080002051d0c000d0001060e001000012010001400012716001700010f1800190001191c00200002122420002400010624002800012c2a002c00010d2d002e00011d30003400010634003600011d38003900012c3c004000030f161d4000440001224400480001054a004b00012550005200011e52005400010554005800010d58005c00012a5c005e0001245f00600001196000640002051264006800011d6a006c000208296e007000011671007200012476007700012978007a0001227a007c00010d`), music.PlaybackMode.LoopingInBackground)
     } else if (level == 3) {
-        music.play(music.createSong(hex`00fa000408050100001c00010a006400f401640000040000000000000000000000000005000004a70000000400011104000600012a0a000c0001250c001000011112001400011e14001800010f1c001e0001192000240001112400260001202c00300002112538003c0002112c40004200012548004c0002111e5400580002111b5c005e0001206000640001116400660001256a006c0001296c007000011172007400012a7c00800002112584008600011e88008c00010f8c008e00011b96009800012298009c0001119c009e000127`), music.PlaybackMode.UntilDone)
         level3setup()
+        music.play(music.createSong(hex`00fa000408050100001c00010a006400f401640000040000000000000000000000000005000004a70000000400011104000600012a0a000c0001250c001000011112001400011e14001800010f1c001e0001192000240001112400260001202c00300002112538003c0002112c40004200012548004c0002111e5400580002111b5c005e0001206000640001116400660001256a006c0001296c007000011172007400012a7c00800002112584008600011e88008c00010f8c008e00011b96009800012298009c0001119c009e000127`), music.PlaybackMode.LoopingInBackground)
     } else if (level == 4) {
-        music.play(music.createSong(hex`00b4000408050100001c00010a006400f401640000040000000000000000000000000005000004040100000400011104000600012a0600070001080a000c0001250c001000020a1111001200010812001400011e14001800010f19001a0001051c001e0002081920002400020a112400260001202800290001082c0030000305112535003600010838003c0002112c40004200020a2548004c00030c111e5200530001085400580002111b59005a00010c5c005e0001205f0060000108600064000111640066000205256800690001086a006c0001296c007000011170007100010a72007400012a7700780001087c00800002112581008200010684008600011e87008800010888008c00010f8c008e00011b8f00900001069600980002082298009c0001119c009e00020a27`), music.PlaybackMode.UntilDone)
         level4Setup()
+        music.play(music.createSong(hex`00b4000408050100001c00010a006400f401640000040000000000000000000000000005000004040100000400011104000600012a0600070001080a000c0001250c001000020a1111001200010812001400011e14001800010f19001a0001051c001e0002081920002400020a112400260001202800290001082c0030000305112535003600010838003c0002112c40004200020a2548004c00030c111e5200530001085400580002111b59005a00010c5c005e0001205f0060000108600064000111640066000205256800690001086a006c0001296c007000011170007100010a72007400012a7700780001087c00800002112581008200010684008600011e87008800010888008c00010f8c008e00011b8f00900001069600980002082298009c0001119c009e00020a27`), music.PlaybackMode.LoopingInBackground)
     }
 }
 function resetSprites () {
+    music.stopAllSounds()
     fireMan.setVelocity(0, 0)
     iceMan.setVelocity(0, 0)
     iceMan.setBounceOnWall(false)
@@ -207,15 +188,10 @@ function resetSprites () {
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     if (currentLevel == 2) {
         if (fireMan.isHittingTile(CollisionDirection.Bottom)) {
+            music.play(music.createSoundEffect(WaveShape.Square, 400, 600, 255, 0, 100, SoundExpressionEffect.None, InterpolationCurve.Linear), music.PlaybackMode.InBackground)
             fireMan.vy = -350
         }
     }
-})
-sprites.onOverlap(SpriteKind.Player, SpriteKind.bag, function (sprite, otherSprite) {
-    info.changeScoreBy(-1)
-    sprite.sayText("I found my bag!", 1000, false)
-    game.showLongText("Now help iceman find his Shirt, Pants, Shoes and Hat", DialogLayout.Bottom)
-    sprites.destroy(otherSprite, effects.coolRadial, 500)
 })
 function SpawnCarObstacles () {
     for (let index = 0; index < 25; index++) {
@@ -237,7 +213,7 @@ function SpawnCarObstacles () {
                 . . . 2 2 2 2 2 2 2 2 2 2 2 . . 
                 . . . 2 2 2 2 2 2 2 2 2 2 2 . . 
                 . . . . . . . . . . . . . . . . 
-                `, SpriteKind.gas)
+                `, SpriteKind.Gas)
             tiles.placeOnTile(gasCan, tiles.getTileLocation(randint(5, 245), randint(14, 15)))
         } else {
             potHole = sprites.create(img`
@@ -257,25 +233,29 @@ function SpawnCarObstacles () {
                 . . b c c f f f f f f f f . . . 
                 . . . b c c c c c c c c b . . . 
                 . . . . . . . . . . . . . . . . 
-                `, SpriteKind.hole)
+                `, SpriteKind.Hole)
             tiles.placeOnTile(potHole, tiles.getTileLocation(randint(5, 245), randint(14, 15)))
         }
     }
 }
+scene.onOverlapTile(SpriteKind.FirePlayer, myTiles.tile7, function (sprite, location) {
+    music.play(music.createSoundEffect(WaveShape.Sine, 200, 600, 255, 0, 150, SoundExpressionEffect.None, InterpolationCurve.Linear), music.PlaybackMode.InBackground)
+    killResetLevel2()
+})
 info.onCountdownEnd(function () {
     if (currentLevel == 3) {
-        sprites.destroyAllSpritesOfKind(SpriteKind.hole)
-        sprites.destroyAllSpritesOfKind(SpriteKind.gas)
+        sprites.destroyAllSpritesOfKind(SpriteKind.Hole)
+        sprites.destroyAllSpritesOfKind(SpriteKind.Gas)
         killResetLevel3()
     }
 })
-sprites.onOverlap(SpriteKind.Car, SpriteKind.hole, function (sprite, otherSprite) {
-    info.changeCountdownBy(-5)
-    sprites.destroy(otherSprite, effects.disintegrate, 500)
-    sprite.vx += -10
+sprites.onOverlap(SpriteKind.FirePlayer, SpriteKind.Player, function (sprite, otherSprite) {
+    if (currentLevel == 2 && levelStarted) {
+        game.showLongText("They found eachother!", DialogLayout.Bottom)
+        createLevel(3)
+    }
 })
 function level3setup () {
-    game.showLongText("Oh no we are low on gas! Quickly to the gas station!", DialogLayout.Top)
     scroller.scrollBackgroundWithCamera(scroller.CameraScrollMode.OnlyHorizontal, scroller.BackgroundLayer.Layer2)
     scroller.setLayerImage(scroller.BackgroundLayer.Layer0, img`
         1111111111111111111111111111111111111111555555555555555555555555555555555555555555555555555555555555555555555555555555511111111111111111111111111111111111111111
@@ -643,6 +623,7 @@ function level3setup () {
         ..........................................................................................................................................................................................................................................................
         ..........................................................................................................................................................................................................................................................
         `)
+    game.showLongText("Oh no we are low on gas! Quickly to the gas station!", DialogLayout.Top)
     story.showPlayerChoices("FireMan", "IceMan")
     if (story.checkLastAnswer("FireMan")) {
         CarAdventure = sprites.create(img`
@@ -691,7 +672,7 @@ function level3setup () {
     tiles.placeOnTile(CarAdventure, tiles.getTileLocation(0, 14))
     scene.cameraFollowSprite(CarAdventure)
     SpawnCarObstacles()
-    gasStationSprite = sprites.create(img`
+    GasStationSprite = sprites.create(img`
         .............................
         .............................
         .............................
@@ -722,17 +703,50 @@ function level3setup () {
         .............................
         .............................
         .............................
-        `, SpriteKind.gasStation)
-    tiles.placeOnTile(gasStationSprite, tiles.getTileLocation(247, 14))
+        `, SpriteKind.GasStation)
+    tiles.placeOnTile(GasStationSprite, tiles.getTileLocation(247, 14))
 }
 function killResetLevel4 () {
     info.setLife(3)
     scene.cameraFollowSprite(fireMan)
     tiles.placeOnTile(fireMan, tiles.getTileLocation(7, 98))
-    sprites.destroyAllSpritesOfKind(SpriteKind.froggerCar)
+    sprites.destroyAllSpritesOfKind(SpriteKind.FroggerCar)
 }
-sprites.onOverlap(SpriteKind.Player, SpriteKind.Player, function (sprite, otherSprite) {
-	
+sprites.onOverlap(SpriteKind.Car, SpriteKind.GasStation, function (sprite, otherSprite) {
+    music.play(music.createSoundEffect(WaveShape.Square, 4279, 1295, 255, 102, 100, SoundExpressionEffect.None, InterpolationCurve.Curve), music.PlaybackMode.InBackground)
+    game.showLongText("We made it!", DialogLayout.Bottom)
+    sprites.destroy(otherSprite)
+    createLevel(4)
+})
+sprites.onOverlap(SpriteKind.Player, SpriteKind.Bag, function (sprite, otherSprite) {
+    info.changeScoreBy(-1)
+    sprite.sayText("I found my Bag!", 1000, false)
+    music.play(music.melodyPlayable(music.magicWand), music.PlaybackMode.UntilDone)
+    game.showLongText("Now help iceman find his Shirt, Pants, Shoes and Hat", DialogLayout.Bottom)
+    sprites.destroy(otherSprite, effects.coolRadial, 500)
+})
+sprites.onOverlap(SpriteKind.Player, SpriteKind.Collectable, function (sprite, otherSprite) {
+    music.play(music.melodyPlayable(music.magicWand), music.PlaybackMode.InBackground)
+    if (isTestingMode) {
+        game.showLongText("All packed and ready to meet fireman!", DialogLayout.Bottom)
+        createLevel(2)
+    }
+    if (info.score() == 5) {
+        sprite.sayText("I can't Carry this without my Bag. I need to find my Bag.", 1000, true)
+    } else {
+        info.changeScoreBy(-1)
+        sprites.destroy(otherSprite, effects.coolRadial, 500)
+        if (info.score() == 0) {
+            game.showLongText("All packed and ready to meet fireman!", DialogLayout.Bottom)
+            createLevel(2)
+        } else {
+            game.showLongText("Only " + info.score() + " more items to find", DialogLayout.Bottom)
+        }
+    }
+})
+scene.onOverlapTile(SpriteKind.FirePlayer, myTiles.tile6, function (sprite, location) {
+    music.play(music.createSoundEffect(WaveShape.Sine, 300, 1797, 0, 255, 100, SoundExpressionEffect.Tremolo, InterpolationCurve.Curve), music.PlaybackMode.InBackground)
+    killResetLevel2()
 })
 info.onLifeZero(function () {
     killResetLevel4()
@@ -740,12 +754,13 @@ info.onLifeZero(function () {
 function killResetLevel2 () {
     tiles.placeOnTile(fireMan, tiles.getTileLocation(1, 11))
 }
-scene.onOverlapTile(SpriteKind.firePlayer, myTiles.tile6, function (sprite, location) {
-    killResetLevel2()
+scene.onHitWall(SpriteKind.FroggerCar, function (sprite, location) {
+    sprites.destroy(sprite)
 })
 scene.onOverlapTile(SpriteKind.Player, myTiles.tile15, function (sprite, location) {
     console.log("OVerlapped White")
     if (sprite.tilemapLocation().row == 4 && currentLevel == 4) {
+        game.setGameOverPlayable(true, music.melodyPlayable(music.powerUp), false)
         game.setGameOverMessage(true, "We made it to our vacation!")
         game.gameOver(true)
     }
@@ -878,11 +893,11 @@ function levelOneSetup () {
     story.startCutscene(function () {
         story.spriteSayText(iceMan, "I can't wait to meet up with fireman for our trip.")
         story.setPagePauseLength(2000, 1000)
-        story.spriteSayText(iceMan, "I need to find my clothes and my bag.")
+        story.spriteSayText(iceMan, "I need to find my clothes and my Bag.")
         story.setPagePauseLength(5000, 1000)
     })
     pause(8000)
-    game.showLongText("Press A to help iceman find his bag and clothes for the trip", DialogLayout.Bottom)
+    game.showLongText("Press A to help iceman find his Bag and clothes for the trip", DialogLayout.Bottom)
     info.setScore(5)
     tiles.setCurrentTilemap(tilemap`level2`)
     tiles.placeOnRandomTile(iceMan, myTiles.tile4)
@@ -904,7 +919,7 @@ function levelOneSetup () {
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
-        `, SpriteKind.bag)
+        `, SpriteKind.Bag)
     iceShirt = sprites.create(img`
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
@@ -922,7 +937,7 @@ function levelOneSetup () {
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
-        `, SpriteKind.collectable)
+        `, SpriteKind.Collectable)
     icePants = sprites.create(img`
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
@@ -940,7 +955,7 @@ function levelOneSetup () {
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
-        `, SpriteKind.collectable)
+        `, SpriteKind.Collectable)
     iceShoe = sprites.create(img`
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
@@ -958,7 +973,7 @@ function levelOneSetup () {
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
-        `, SpriteKind.collectable)
+        `, SpriteKind.Collectable)
     iceHat = sprites.create(img`
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
@@ -976,22 +991,24 @@ function levelOneSetup () {
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
-        `, SpriteKind.collectable)
+        `, SpriteKind.Collectable)
     tiles.placeOnRandomTile(iceBag, myTiles.tile3)
     tiles.setTileAt(iceBag.tilemapLocation(), myTiles.transparency16)
-    for (let value of sprites.allOfKind(SpriteKind.collectable)) {
+    for (let value of sprites.allOfKind(SpriteKind.Collectable)) {
         tiles.placeOnRandomTile(value, myTiles.tile2)
         tiles.setTileAt(value.tilemapLocation(), myTiles.transparency16)
     }
     controller.moveSprite(iceMan)
     scene.cameraFollowSprite(iceMan)
 }
-sprites.onOverlap(SpriteKind.Player, SpriteKind.froggerCar, function (sprite, otherSprite) {
+scene.onOverlapTile(SpriteKind.Car, myTiles.tile9, function (sprite, location) {
+    music.play(music.createSoundEffect(WaveShape.Sine, 200, 600, 255, 0, 150, SoundExpressionEffect.None, InterpolationCurve.Linear), music.PlaybackMode.InBackground)
+    tiles.placeOnTile(CarAdventure, tiles.getTileLocation(location.column, 14))
+})
+sprites.onOverlap(SpriteKind.Player, SpriteKind.FroggerCar, function (sprite, otherSprite) {
+    music.play(music.createSoundEffect(WaveShape.Sawtooth, 400, 600, 255, 0, 100, SoundExpressionEffect.None, InterpolationCurve.Linear), music.PlaybackMode.InBackground)
     info.changeLifeBy(-1)
     sprites.destroy(otherSprite)
-})
-scene.onOverlapTile(SpriteKind.Car, myTiles.tile9, function (sprite, location) {
-    tiles.placeOnTile(CarAdventure, tiles.getTileLocation(location.column, 14))
 })
 function killResetLevel3 () {
     game.showLongText("Collect the gas to extend the timer while avoiding potholes", DialogLayout.Bottom)
@@ -1001,31 +1018,22 @@ function killResetLevel3 () {
     tiles.placeOnTile(CarAdventure, tiles.getTileLocation(0, 14))
     info.startCountdown(35)
 }
-sprites.onOverlap(SpriteKind.Player, SpriteKind.collectable, function (sprite, otherSprite) {
-    if (isTestingMode) {
-        game.showLongText("All packed and ready to meet fireman!", DialogLayout.Bottom)
-        createLevel(2)
-    }
-    if (info.score() == 5) {
-        sprite.sayText("I can't carry this without my bag. I need to find my bag.", 1000, true)
-    } else {
-        info.changeScoreBy(-1)
-        sprites.destroy(otherSprite, effects.coolRadial, 500)
-        if (info.score() == 0) {
-            game.showLongText("All packed and ready to meet fireman!", DialogLayout.Bottom)
-            createLevel(2)
-        } else {
-            game.showLongText("Only " + info.score() + " more items to find", DialogLayout.Bottom)
-        }
-    }
+// Glitch happening here? Possibly testing mode only
+sprites.onOverlap(SpriteKind.Car, SpriteKind.Gas, function (sprite, otherSprite) {
+    music.play(music.melodyPlayable(music.baDing), music.PlaybackMode.InBackground)
+    info.changeCountdownBy(5)
+    sprites.destroy(otherSprite, effects.fire, 500)
 })
-scene.onOverlapTile(SpriteKind.firePlayer, myTiles.tile7, function (sprite, location) {
-    killResetLevel2()
+sprites.onOverlap(SpriteKind.Car, SpriteKind.Hole, function (sprite, otherSprite) {
+    music.play(music.melodyPlayable(music.wawawawaa), music.PlaybackMode.InBackground)
+    info.changeCountdownBy(-5)
+    sprites.destroy(otherSprite, effects.disintegrate, 500)
+    sprite.vx += -10
 })
 function level4Setup () {
-    sprites.destroyAllSpritesOfKind(SpriteKind.gas)
-    sprites.destroyAllSpritesOfKind(SpriteKind.hole)
-    sprites.destroyAllSpritesOfKind(SpriteKind.gasStation)
+    sprites.destroyAllSpritesOfKind(SpriteKind.Gas)
+    sprites.destroyAllSpritesOfKind(SpriteKind.Hole)
+    sprites.destroyAllSpritesOfKind(SpriteKind.GasStation)
     iceMan.setKind(SpriteKind.Friend)
     fireMan.setKind(SpriteKind.Friend)
     scene.setBackgroundImage(img`
@@ -1154,9 +1162,9 @@ function level4Setup () {
     fireMan.setFlag(SpriteFlag.Invisible, false)
     tiles.placeOnTile(fireMan, tiles.getTileLocation(7, 98))
     scene.cameraFollowSprite(fireMan)
-    story.spriteSayText(fireMan, "Time to cross these busy roads and meet Iceman at the hotel")
+    story.spriteSayText(fireMan, "Time to cross these busy roads and meet Iceman at the Hotel")
     controller.moveSprite(fireMan, 45, 100)
-    hotelSprite = sprites.create(img`
+    HotelSprite = sprites.create(img`
         ......................................................................................................................................................
         ...................................................f...f...........f............f.....................................................................
         ...................................................f...f...........f............f.....................................................................
@@ -1174,7 +1182,7 @@ function level4Setup () {
         ...................................................f...f..fffff....f...fffff....f.....................................................................
         ......................................................................................................................................................
         `, SpriteKind.Hotel)
-    tiles.placeOnTile(hotelSprite, tiles.getTileLocation(7, 4))
+    tiles.placeOnTile(HotelSprite, tiles.getTileLocation(7, 4))
     fireMan.setKind(SpriteKind.Player)
     info.setLife(3)
 }
@@ -1182,13 +1190,13 @@ function level4Setup () {
 let avoidCar: Sprite = null
 let leftTravel: number[] = []
 let rightTravel: number[] = []
-let hotelSprite: Sprite = null
+let HotelSprite: Sprite = null
 let iceHat: Sprite = null
 let iceShoe: Sprite = null
 let icePants: Sprite = null
 let iceShirt: Sprite = null
 let iceBag: Sprite = null
-let gasStationSprite: Sprite = null
+let GasStationSprite: Sprite = null
 let CarAdventure: Sprite = null
 let potHole: Sprite = null
 let gasCan: Sprite = null
@@ -1198,7 +1206,6 @@ let currentLevel = 0
 let fireMan: Sprite = null
 let iceMan: Sprite = null
 let title: Sprite = null
-let mySprite = null
 scene.setBackgroundImage(img`
     9222222222222222222222222222222222222222222222244444444444444444444444444444444444444444444444454444445554555554555555555555555555555555555555555555555555555555
     9922222222222222222222222222222222222222222222244444424444444444444444444444444444444444444444445444545555455555445555555555555555555555555555555555555555555555
@@ -1445,17 +1452,17 @@ title = sprites.create(img`
     `, SpriteKind.Player)
 iceMan = sprites.create(assets.image`ice`, SpriteKind.Player)
 iceMan.setPosition(145, 10)
-fireMan = sprites.create(assets.image`fire`, SpriteKind.firePlayer)
+fireMan = sprites.create(assets.image`fire`, SpriteKind.FirePlayer)
 fireMan.setPosition(28, 107)
 iceMan.setVelocity(-50, 0)
 fireMan.setVelocity(50, 0)
 iceMan.setBounceOnWall(true)
 fireMan.setBounceOnWall(true)
-pause(2000)
+pause(3000)
 game.showLongText("Press A to start the game", DialogLayout.Bottom)
 pauseUntil(() => controller.A.isPressed())
 currentLevel = 0
-isTestingMode = true
+isTestingMode = false
 levelStarted = false
 createLevel(1)
 game.onUpdateInterval(1500, function () {
@@ -1548,7 +1555,7 @@ game.onUpdateInterval(1500, function () {
                         . . f f f f f 8 8 f f f f f 8 . 
                         . . . f f f . . . . f f f f . . 
                         . . . . . . . . . . . . . . . . 
-                        `, SpriteKind.froggerCar)
+                        `, SpriteKind.FroggerCar)
                     tiles.placeOnTile(avoidCar, tiles.getTileLocation(0, value2))
                     avoidCar.vx = 25
                 } else if (Math.percentChance(15)) {
@@ -1569,7 +1576,7 @@ game.onUpdateInterval(1500, function () {
                         f f f f f e e f f f f f e . . . 
                         . f f f . . . . f f f f . . . . 
                         . . . . . . . . . . . . . . . . 
-                        `, SpriteKind.froggerCar)
+                        `, SpriteKind.FroggerCar)
                     tiles.placeOnTile(avoidCar, tiles.getTileLocation(0, value2))
                     avoidCar.vx = 25
                 } else if (Math.percentChance(5)) {
@@ -1590,7 +1597,7 @@ game.onUpdateInterval(1500, function () {
                         f f f f f a a f f f f f a . . . 
                         . f f f . . . . f f f f . . . . 
                         . . . . . . . . . . . . . . . . 
-                        `, SpriteKind.froggerCar)
+                        `, SpriteKind.FroggerCar)
                     tiles.placeOnTile(avoidCar, tiles.getTileLocation(0, value2))
                     avoidCar.vx = 25
                 } else {
@@ -1618,7 +1625,7 @@ game.onUpdateInterval(1500, function () {
                         . . . e f f f f f e e f f f f f 
                         . . . . f f f f . . . . f f f . 
                         . . . . . . . . . . . . . . . . 
-                        `, SpriteKind.froggerCar)
+                        `, SpriteKind.FroggerCar)
                     tiles.placeOnTile(avoidCar, tiles.getTileLocation(15, value3))
                     avoidCar.vx = -25
                 } else if (Math.percentChance(20)) {
@@ -1639,7 +1646,7 @@ game.onUpdateInterval(1500, function () {
                         . . . a f f f f f a a f f f f f 
                         . . . . f f f f . . . . f f f . 
                         . . . . . . . . . . . . . . . . 
-                        `, SpriteKind.froggerCar)
+                        `, SpriteKind.FroggerCar)
                     tiles.placeOnTile(avoidCar, tiles.getTileLocation(15, value3))
                     avoidCar.vx = -25
                 } else if (Math.percentChance(10)) {
@@ -1660,7 +1667,7 @@ game.onUpdateInterval(1500, function () {
                         8 8 8 8 f f f 8 8 8 8 f f f 8 8 
                         . 8 8 f b c c f 8 8 f b c c f . 
                         . . . . b b f . . . . b b f . . 
-                        `, SpriteKind.froggerCar)
+                        `, SpriteKind.FroggerCar)
                     tiles.placeOnTile(avoidCar, tiles.getTileLocation(15, value3))
                     avoidCar.vx = -25
                 } else {
